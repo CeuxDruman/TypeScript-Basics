@@ -9,16 +9,18 @@ new Course("Design and Architecture principles", 30, 75, true, 2020)]
 export const learner = new Learner("Carlos Alberto", "Mata Gil", "avatar.png", 29, EducationalLevel.UNIVERSITY, courses);
 
 //console.log(learner);
-console.log(learner.courses);
+//console.log(learner.courses);
 
 // tsc -p .\tsconfig.json --> Compile ts files into js files using the config available in tsconfig.json file
 
 let learnerTable: HTMLElement = document.getElementById("learner")!;
 // ! --> Indicas que SIEMPRE va a existir, existe un 0% de probabilidades de que no encuentre y por lo tanto sea null;
 let statisticsTable: HTMLElement = document.getElementById("statistics")!;
+let coursesTable: HTMLElement = document.getElementById("courses")!;
 
 showLearnerData(learner);
 showStatistics(learner);
+showLearnerCourses(learner);
 
 function showLearnerData(learner: Learner): void {
     let tbodyLearner = document.createElement("tbody");
@@ -35,4 +37,18 @@ function showStatistics(learner: Learner): void {
     let trElement: HTMLElement = document.createElement("tr");
     trElement.innerHTML = `<td><b>Certified courses</b></td><td>${numberOfCertificates}</td>`
     statisticsTable.appendChild(trElement);
+}
+
+function showLearnerCourses(learner: Learner): void {
+    let coursesTbody: HTMLElement = document.createElement("tbody");
+    for(let course of learner.courses) {
+        let trElement: HTMLElement = document.createElement("tr");
+        trElement.innerHTML = `<td>${course.name}</td>
+        <td>${course.hours}</td>
+        <td>${course.calification}</td>
+        <td>${course.certified}</td>
+        <td>${course.year}</td>`
+        coursesTbody.appendChild(trElement);
+    }
+    coursesTable.appendChild(coursesTbody);
 }
