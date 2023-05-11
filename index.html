@@ -6,6 +6,7 @@
     <title>TypeScript Project</title>
     <link rel="icon" href="data:,">
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" type="text/css" href="style.css">
     <script type="module" src='./scripts/main.js'></script>
 </head>
 <body>
@@ -14,8 +15,10 @@
     <h2>Statistics</h2>
     <table class="table" id="statistics"></table>
     <h2>Courses taken</h2>
-    <input type="text" class="form-control" id="search-text" placeholder="Filter by name">
-    <button type="button" class="btn btn-success" id="filter-button">Apply</button>
+    <div class="filter">
+        <input type="text" class="form-control" id="search-text" placeholder="Filter by name">
+        <button type="button" class="btn btn-success" id="filter-button">Apply</button>
+    </div>
     <table class="table" id="courses">
         <thead class="thead-dark">
             <tr>

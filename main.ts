@@ -23,7 +23,7 @@ let searchText: HTMLInputElement = <HTMLInputElement>document.getElementById("se
 // btnFilter.onclick = filterByName;
 btnFilter.onclick = () => { // TypeScript doesn't support return type on arrow functions natively
     let text: string = searchText.value;
-    text = (text==null)?"":text;
+    text = (text == null) ? "" : text;
     coursesTable.getElementsByTagName("tbody")[0].remove();
     let filteredCourses: Course[] = learner.courses.filter(c => c.name.match(text));
     showLearnerCourses(filteredCourses);
@@ -60,14 +60,17 @@ function showStatistics(learner: Learner): void {
 
 function showLearnerCourses(courses: Course[]): void {
     let coursesTbody: HTMLElement = document.createElement("tbody");
+    let state: string[] = courses.map(c => (c.calification > 60) ? 'green' : 'red');
+    let index: number = 0;
     for(let course of courses) {
         let trElement: HTMLElement = document.createElement("tr");
         trElement.innerHTML = `<td>${course.name}</td>
         <td>${course.hours}</td>
-        <td>${course.calification}</td>
+        <td style="color: ${state[index]}">${course.calification}</td>
         <td>${course.certified}</td>
         <td>${course.year}</td>`
         coursesTbody.appendChild(trElement);
+        index++;
     }
     coursesTable.appendChild(coursesTbody);
 }

@@ -45,11 +45,14 @@ function showStatistics(learner) {
 }
 function showLearnerCourses(courses) {
     var coursesTbody = document.createElement("tbody");
+    var state = courses.map(function (c) { return (c.calification > 60) ? 'green' : 'red'; });
+    var index = 0;
     for (var _i = 0, courses_1 = courses; _i < courses_1.length; _i++) {
         var course = courses_1[_i];
         var trElement = document.createElement("tr");
-        trElement.innerHTML = "<td>" + course.name + "</td>\n        <td>" + course.hours + "</td>\n        <td>" + course.calification + "</td>\n        <td>" + course.certified + "</td>\n        <td>" + course.year + "</td>";
+        trElement.innerHTML = "<td>" + course.name + "</td>\n        <td>" + course.hours + "</td>\n        <td style=\"color: " + state[index] + "\">" + course.calification + "</td>\n        <td>" + course.certified + "</td>\n        <td>" + course.year + "</td>";
         coursesTbody.appendChild(trElement);
+        index++;
     }
     coursesTable.appendChild(coursesTbody);
 }
