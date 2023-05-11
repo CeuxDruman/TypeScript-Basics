@@ -12,9 +12,26 @@ var learnerTable = document.getElementById("learner");
 // ! --> Indicas que SIEMPRE va a existir, existe un 0% de probabilidades de que no encuentre y por lo tanto sea null;
 var statisticsTable = document.getElementById("statistics");
 var coursesTable = document.getElementById("courses");
+var btnFilter = document.getElementById("filter-button");
+var searchText = document.getElementById("search-text");
+// btnFilter.onclick = filterByName;
+btnFilter.onclick = function () {
+    var text = searchText.value;
+    text = (text == null) ? "" : text;
+    coursesTable.getElementsByTagName("tbody")[0].remove();
+    var filteredCourses = learner.courses.filter(function (c) { return c.name.match(text); });
+    showLearnerCourses(filteredCourses);
+};
 showLearnerData(learner);
 showStatistics(learner);
-showLearnerCourses(learner);
+showLearnerCourses(learner.courses);
+/* function filterByName(): void {
+    let text: string = searchText.value;
+    text = (text==null)?"":text;
+    coursesTable.getElementsByTagName("tbody")[0].remove();
+    let filteredCourses: Course[] = learner.courses.filter(function(c){return c.name.match(text);});
+    showLearnerCourses(filteredCourses);
+} */
 function showLearnerData(learner) {
     var tbodyLearner = document.createElement("tbody");
     tbodyLearner.innerHTML = "<tr><td colspan=\"2\"><img src=\"./" + learner.avatar + "\" height=\"100\"></td></tr>\n    <tr><td>Names:</td><td>" + learner.names + "</td></tr>\n    <tr><td>Surnames:</td><td>" + learner.surnames + "</td></tr>\n    <tr><td>Educational level:</td><td>" + learner.educationalLevel + "</td></tr>\n    <tr><td>Age:</td><td>" + learner.age + "</td></tr>";
@@ -26,10 +43,10 @@ function showStatistics(learner) {
     trElement.innerHTML = "<td><b>Certified courses</b></td><td>" + numberOfCertificates + "</td>";
     statisticsTable.appendChild(trElement);
 }
-function showLearnerCourses(learner) {
+function showLearnerCourses(courses) {
     var coursesTbody = document.createElement("tbody");
-    for (var _i = 0, _a = learner.courses; _i < _a.length; _i++) {
-        var course = _a[_i];
+    for (var _i = 0, courses_1 = courses; _i < courses_1.length; _i++) {
+        var course = courses_1[_i];
         var trElement = document.createElement("tr");
         trElement.innerHTML = "<td>" + course.name + "</td>\n        <td>" + course.hours + "</td>\n        <td>" + course.calification + "</td>\n        <td>" + course.certified + "</td>\n        <td>" + course.year + "</td>";
         coursesTbody.appendChild(trElement);

@@ -17,10 +17,29 @@ let learnerTable: HTMLElement = document.getElementById("learner")!;
 // ! --> Indicas que SIEMPRE va a existir, existe un 0% de probabilidades de que no encuentre y por lo tanto sea null;
 let statisticsTable: HTMLElement = document.getElementById("statistics")!;
 let coursesTable: HTMLElement = document.getElementById("courses")!;
+let btnFilter: HTMLElement = document.getElementById("filter-button")!;
+let searchText: HTMLInputElement = <HTMLInputElement>document.getElementById("search-text")!;
+
+// btnFilter.onclick = filterByName;
+btnFilter.onclick = () => { // TypeScript doesn't support return type on arrow functions natively
+    let text: string = searchText.value;
+    text = (text==null)?"":text;
+    coursesTable.getElementsByTagName("tbody")[0].remove();
+    let filteredCourses: Course[] = learner.courses.filter(c => c.name.match(text));
+    showLearnerCourses(filteredCourses);
+}
 
 showLearnerData(learner);
 showStatistics(learner);
-showLearnerCourses(learner);
+showLearnerCourses(learner.courses);
+
+/* function filterByName(): void {
+    let text: string = searchText.value;
+    text = (text==null)?"":text;
+    coursesTable.getElementsByTagName("tbody")[0].remove();
+    let filteredCourses: Course[] = learner.courses.filter(function(c){return c.name.match(text);});
+    showLearnerCourses(filteredCourses);
+} */
 
 function showLearnerData(learner: Learner): void {
     let tbodyLearner = document.createElement("tbody");
@@ -39,9 +58,9 @@ function showStatistics(learner: Learner): void {
     statisticsTable.appendChild(trElement);
 }
 
-function showLearnerCourses(learner: Learner): void {
+function showLearnerCourses(courses: Course[]): void {
     let coursesTbody: HTMLElement = document.createElement("tbody");
-    for(let course of learner.courses) {
+    for(let course of courses) {
         let trElement: HTMLElement = document.createElement("tr");
         trElement.innerHTML = `<td>${course.name}</td>
         <td>${course.hours}</td>
